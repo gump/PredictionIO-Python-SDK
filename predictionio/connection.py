@@ -11,6 +11,7 @@ import logging
 
 # some constants
 MAX_RETRY = 1 # 0 means no retry
+DEFAULT_TIMEOUT = 60
 
 
 # logger
@@ -128,9 +129,9 @@ class AsyncResponse:
 class PredictionIOHttpConnection():
     def __init__(self, host, https=True):
         if https: # https connection
-            self._connection = httplib.HTTPSConnection(host)
+            self._connection = httplib.HTTPSConnection(host, timeout=DEFAULT_TIMEOUT)
         else:
-            self._connection = httplib.HTTPConnection(host)
+            self._connection = httplib.HTTPConnection(host, timeout=DEFAULT_TIMEOUT)
     
     def connect(self):
         self._connection.connect()
